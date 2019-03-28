@@ -129,12 +129,17 @@ public class Digestive extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     public void onBackPressed() {
-        if (mExoPlayerHelper.pla()) {
-            player.stop();
+        if (mExoPlayerHelper != null) {
+            mExoPlayerHelper.playerPause();
+          //  mExoPlayerHelper.;
+          //  mExoPlayerHelper.seekTo(0);
+            super.onBackPressed();
+            
         }
-        player.release();
-        super.onBackPressed();
-*/
+        }
+
+        //super.onBackPressed();
+
 }

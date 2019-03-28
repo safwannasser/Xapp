@@ -48,7 +48,7 @@ public class Subject extends AppCompatActivity {
         i.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(context,Chat.class);
+                Intent intent= new Intent(context,Users.class);
                 startActivity(intent);
             }
         });
