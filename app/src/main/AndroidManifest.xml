@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Users"></activity>
+        <activity android:name=".Displayscore"></activity>
+        <activity android:name=".Quiz" />
+        <activity android:name=".Rating" />
+        <activity android:name=".Users" />
         <activity android:name=".Chat" />
         <activity android:name=".Photosyn" />
         <activity android:name=".Digestive" />
