@@ -1,6 +1,7 @@
 package com.example.xapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +22,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Teacheradapter extends BaseAdapter {
+    SharedPreferences sharedpreferences;
  ArrayList<Teachername> teachers;
  Context context;
- String key,sid;
+ String key,sid,sname,studentid;
+ int flag=0;
+    public static final String mypreference = "mypref";
+    public static final String Name = "nameKey";
+    public static final String Email = "emailKey";
  Teacheradapter(ArrayList<Teachername> teachers,Context context)
  {
      this.teachers=teachers;
@@ -53,9 +59,38 @@ public class Teacheradapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                String tname=teachers.get(position).name;
-                final Query userQuery = FirebaseDatabase.getInstance().getReference().child("Teacher").orderByChild("name");
+                sharedpreferences = context.getSharedPreferences(mypreference,
+                        Context.MODE_PRIVATE);
+                sname=sharedpreferences.getString(Name,"hahaha  "+tname);
+                Log.i("student",sname);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("Students");
+                DatabaseReference ref= database.getReference("Teacher");
 
-                userQuery.equalTo(tname).addListenerForSingleValueEvent(
+                        final Query userQuery = FirebaseDatabase.getInstance().getReference().child("Students").orderByChild("name");
+                      //  Log.i("tevin",userQuery+"");
+                        userQuery.equalTo(sname).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Log.i("tevin",dataSnapshot+"");
+
+                                for(DataSnapshot studentsnapshot : dataSnapshot.getChildren())
+                                {
+                                    sid=studentsnapshot.getKey();
+                                    Log.i("safwaaa",sid);
+                                }
+                            }
+
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                final Query userquery = FirebaseDatabase.getInstance().getReference().child("Teacher").orderByChild("name");
+
+                userquery.equalTo(tname).addListenerForSingleValueEvent(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,22 +98,52 @@ public class Teacheradapter extends BaseAdapter {
                                 for(DataSnapshot teachersnapshot : dataSnapshot.getChildren())
                                 {
                                      key= teachersnapshot.getKey();
-                                    Log.i("UID",key);
+                                    Log.i("rithuuu",key);
                                 }
 
                             }
-                            DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Teacher").child(key).child("chats");
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference userRef= users.child("Teacher").child(key).child("chats");
-
-
+                            //DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Teacher").child(key).child("chats");
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
                             }
                         }
-                );
+                 );
+                ref.child("chats").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds: dataSnapshot.getChildren())
+                        {
+                            studentid=ds.getValue().toString();
+                            if(sid==studentid)
+                            {
+                                flag=1;
+                            }
+
+
+                        }
+                        if(flag==1)
+                        {
+                            //chat exist
+                        }
+                        else
+                        {
+                            //chat doesn't exit
+                            ref.child(key).child("chats").child(sid).child("message1").child("id").setValue("0");
+                           ref.child(key).child("chats").child(sid).child("message1").child("message").setValue("hi");
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
 
 
             }

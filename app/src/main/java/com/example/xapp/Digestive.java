@@ -35,7 +35,7 @@ public class Digestive extends AppCompatActivity {
     public static final String TEST_TAG_URL = "https://firebasestorage.googleapis.com/v0/b/xapp-b979f.appspot.com/o/storage%2Femulated%2F0%2FWhatsApp%2FMedia%2FWhatsApp%20Video%2FVID-20190314-WA0001.mp4?alt=media&token=077e742e-e466-4a2e-a4d6-57f3dd82dc27";
     private ExoPlayerHelper mExoPlayerHelper;
     ProgressDialog pd;
-    Button rating;
+    Button rating,quiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +147,7 @@ public class Digestive extends AppCompatActivity {
         });
       //  onBackpressed();
         addListenerOnButton();
+        addListenerOnQuizButton();
 
         name=(TextView)findViewById(R.id.teachername);
         cur_rate=(TextView)findViewById(R.id.rating);
@@ -165,6 +166,7 @@ public class Digestive extends AppCompatActivity {
                         {
                             key= teachersnapshot.getKey();
                             Log.i("uid",key);
+
                             ref.child(key).child("rating").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -242,8 +244,25 @@ public class Digestive extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(Digestive.this, Rating.class);
+                intent.putExtra("MY_KEY", key);
                 startActivity(intent);
             }
+        });
+    }
+    public void addListenerOnQuizButton()
+    {
+        quiz = (Button)findViewById(R.id.quizbutton);
+        quiz.setOnClickListener(v -> {
+            if (mExoPlayerHelper != null) {
+                mExoPlayerHelper.playerPause();
+                //  mExoPlayerHelper.;
+                //  mExoPlayerHelper.seekTo(0);
+
+
+            }
+
+            Intent intent = new Intent(Digestive.this, Quiz.class);
+            startActivity(intent);
         });
     }
 }

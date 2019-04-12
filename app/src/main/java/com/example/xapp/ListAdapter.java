@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.os.Handler;
 import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
@@ -76,17 +76,28 @@ public class ListAdapter extends BaseAdapter {
 
                 // Toast.makeText(context,classes.get(position).status,Toast.LENGTH_LONG).show();
                 Subject subject=(Subject)context;
-                if(class_sub==1)
-                    subject.setSubjects(position);
+                if(class_sub==1){
+                    if (classes.get(position).status.equals("xa"))
+                        showToastMessage("Under Maintanence",500);
+                    else
+                        subject.setSubjects(position);
+                }
 
-                else if (class_sub==2)
-                    subject.setTopics(classnum,position);
-                else if(class_sub==3)
+
+                else if (class_sub==2){
+                    if(subjects.get(position).topics==null)
+                        showToastMessage("Under Maintanence",500);
+                    else
+                        subject.setTopics(classnum,position);}
+                    else if(class_sub==3)
                 {
                   /* TextView sub=(TextView)v.findViewById(R.id.item);
                     String subj=sub.getText().toString();*/
                   if(position==0)
                    subject.toDigest();
+                  else
+                      showToastMessage("Under Maintanence",500);
+
 
 
                 }
@@ -99,6 +110,16 @@ public class ListAdapter extends BaseAdapter {
 
         return convertView;
     }
-
+    public void showToastMessage(String text, int duration){
+        final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, duration);
+    }
 
 }

@@ -16,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Displayscore"></activity>
+        <activity
+            android:name=".Profile"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+        <activity android:name=".Displayscore" />
         <activity android:name=".Quiz" />
         <activity android:name=".Rating" />
         <activity android:name=".Users" />

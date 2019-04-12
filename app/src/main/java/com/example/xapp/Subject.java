@@ -61,11 +61,19 @@ public class Subject extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Subject.this, Subject.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
+        if(listAdapter.class_sub==1)
+        {
+            finish();
+        }
+
+        else if (listAdapter.class_sub==2) {
+            setClasses();
+        }
+        else if(listAdapter.class_sub==3)
+        {
+            setSubjects(listAdapter.classnum);
+
+        }
 
 
     }
@@ -86,9 +94,10 @@ public class Subject extends AppCompatActivity {
                     cls.clss = ds.getKey();
                     cls.subs=new ArrayList<Classes.Subjects>();
                     if(ds.getValue().toString().equals("Under Maintanence")) {
-                        cls.status = ds.getValue().toString();
+                        cls.status = "xa";
                     }
                     else{
+                        cls.status="ahjk";
                         for(DataSnapshot ds1:ds.getChildren()) {
                             Classes.Subjects sub = new Classes.Subjects();
                             sub.name = ds1.getKey();
