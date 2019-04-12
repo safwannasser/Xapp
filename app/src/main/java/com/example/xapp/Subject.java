@@ -40,18 +40,18 @@ public class Subject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
         getSubjects();
-        Get();
+       /* Get();*/
         //addListenerOnButton();
-        FloatingActionButton fab = (FloatingActionButton) findViewById (R.id.fab);
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById (R.id.fab);
         fab.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-               /* i=(FloatingActionButton)findViewById(R.id.inbox);
-                i.setOnClickListener(v -> {*/
+               *//* i=(FloatingActionButton)findViewById(R.id.inbox);
+                i.setOnClickListener(v -> {*//*
                     Intent intent=new Intent(Subject.this,Users.class);
                     startActivity(intent);
             };
-        });
+        });*/
         };
 
 
@@ -179,7 +179,7 @@ public class Subject extends AppCompatActivity {
 
 
     }*/
-    public void Get() {
+ /*   public void Get() {
         name = (TextView) findViewById(R.id.name);
         //email = (TextView) findViewById(R.id.etEmail);
         sharedpreferences = getSharedPreferences(mypreference,
@@ -188,7 +188,7 @@ public class Subject extends AppCompatActivity {
         // if (sharedpreferences.contains(Email)) {
         //   email.setText(sharedpreferences.getString(Email, ""));
 
-    }
+    }*/
 }
 
 

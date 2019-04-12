@@ -126,7 +126,7 @@ public class login extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()) {
-                                        Intent intent= new Intent(context,Subject.class);
+                                        Intent intent= new Intent(context,Profile.class);
                                         startActivity(intent);
                                         finish();
                                     }

@@ -1,5 +1,6 @@
 package com.example.xapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+        Button r;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +25,14 @@ public class Profile extends AppCompatActivity
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        addListenerOnButton();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent=new Intent(Profile.this,Users.class);
+                startActivity(intent);
             }
         });
 
@@ -80,22 +84,33 @@ public class Profile extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.edit_profile) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.logout) {
+            Intent intent=new Intent(this,login.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.tnc) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void addListenerOnButton()
+    {
+        r=findViewById(R.id.button);
+        r.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, Subject.class);
+                startActivity(intent);
+            }
+        });
     }
 }
