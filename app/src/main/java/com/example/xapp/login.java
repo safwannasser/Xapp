@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,12 +32,18 @@ public class login extends AppCompatActivity {
     FirebaseAuth Auth;
     ProgressDialog progressDialog;
     CheckBox saveLoginCheckBox;
+    SharedPreferences sharedpreferences;
 
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
-    private String username,password;
+    private String username,password,email;
+    public static final String mypreferences = "myprefer";
 
+    public static final String Email = "emailKey";
+    public static final String ID = "sid";
+
+    int lock=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +66,24 @@ public class login extends AppCompatActivity {
             ipassword.setText(loginPreferences.getString("password", ""));
             saveLoginCheckBox.setChecked(true);
         }
+        sharedpreferences = getSharedPreferences(mypreferences,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(Email)) {
+            iemail.setText(sharedpreferences.getString(Email, ""));
+        }
 
         //Auth = FirebaseAuth.getInstance();
 
         addListenerOnButton();
+    }
+    public void Save()
+    {
+      //  String n = iname.getText().toString();
+        String e = iemail.getText().toString();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(Email, e);
+        // editor.putString(Email, e);
+        editor.commit();
     }
     public void addListenerOnButton() {
         progressDialog = new ProgressDialog(this);
@@ -93,7 +114,7 @@ public class login extends AppCompatActivity {
                 }
 
 
-                final String email = iemail.getText().toString();
+               email = iemail.getText().toString();
 
                 final String password = ipassword.getText().toString();
                 if (TextUtils.isEmpty(email)) {
@@ -107,6 +128,36 @@ public class login extends AppCompatActivity {
                 }
                 progressDialog.setMessage("Logging in..");
                 progressDialog.show();
+
+                final Query userQuery = FirebaseDatabase.getInstance().getReference().child("Students").orderByChild("email");
+                //  Log.i("tevin",userQuery+"");
+                userQuery.equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.i("tevin",dataSnapshot+"");
+                        String sid = "";
+                        for(DataSnapshot studentsnapshot : dataSnapshot.getChildren())
+                        {
+                            sid=studentsnapshot.getKey();
+                            Log.i("safwaaa",sid);
+                        }
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(ID, sid);
+                        lock=1;
+                        // editor.putString(Email, e);
+                        editor.commit();
+                    }
+
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d("safw", databaseError.getMessage());
+
+                    }
+                });
+
+
                 Auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(login.this, new OnCompleteListener<AuthResult>() {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
@@ -126,6 +177,8 @@ public class login extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()) {
+                                        Save();
+                                        while(lock==0);
                                         Intent intent= new Intent(context,Profile.class);
                                         startActivity(intent);
                                         finish();

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.widget.Button;
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         Button r;
+        String getemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,15 @@ public class Profile extends AppCompatActivity
         setSupportActionBar(toolbar);
         addListenerOnButton();
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent=new Intent(Profile.this,Users.class);
+
+
                 startActivity(intent);
             }
         });

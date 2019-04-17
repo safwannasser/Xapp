@@ -1,7 +1,9 @@
 package com.example.xapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,15 +25,21 @@ import java.util.ArrayList;
 
 public class Teacheradapter extends BaseAdapter {
     SharedPreferences sharedpreferences;
+    SharedPreferences sharedpreference;
  ArrayList<Teachername> teachers;
  Context context;
- String key,sid,sname,studentid;
+ String key,sid,sname,studentid,semail;
+    public static final String ID = "sid";
  int flag=0;
-    public static final String mypreference = "mypref";
-    public static final String Name = "nameKey";
+    public static final String mypreferences = "myprefer";
+   // public static final String Name = "nameKey";
     public static final String Email = "emailKey";
+    public static final String mypreference = "myprefer";
+
+    public static final String tid = "tid";
  Teacheradapter(ArrayList<Teachername> teachers,Context context)
  {
+
      this.teachers=teachers;
      this.context=context;
  }
@@ -59,35 +67,18 @@ public class Teacheradapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                String tname=teachers.get(position).name;
-                sharedpreferences = context.getSharedPreferences(mypreference,
+
+                sharedpreferences = context.getSharedPreferences(mypreferences,
                         Context.MODE_PRIVATE);
-                sname=sharedpreferences.getString(Name,"hahaha  "+tname);
-                Log.i("student",sname);
+                sharedpreference = context.getSharedPreferences(mypreference,
+                        Context.MODE_PRIVATE);
+                sid=sharedpreferences.getString(ID,"hahaha  "+tname);
+                Log.i("student",sid);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("Students");
                 DatabaseReference ref= database.getReference("Teacher");
 
-                        final Query userQuery = FirebaseDatabase.getInstance().getReference().child("Students").orderByChild("name");
-                      //  Log.i("tevin",userQuery+"");
-                        userQuery.equalTo(sname).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Log.i("tevin",dataSnapshot+"");
 
-                                for(DataSnapshot studentsnapshot : dataSnapshot.getChildren())
-                                {
-                                    sid=studentsnapshot.getKey();
-                                    Log.i("safwaaa",sid);
-                                }
-                            }
-
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
                 final Query userquery = FirebaseDatabase.getInstance().getReference().child("Teacher").orderByChild("name");
 
                 userquery.equalTo(tname).addListenerForSingleValueEvent(
@@ -99,7 +90,44 @@ public class Teacheradapter extends BaseAdapter {
                                 {
                                      key= teachersnapshot.getKey();
                                     Log.i("rithuuu",key);
+
+
+                                    ref.child(key).child("chats").child(sid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            Log.e("Pranav"," ahhaha"+dataSnapshot);
+
+                                            if (dataSnapshot.exists())
+                                                flag = 1;
+
+
+                                            if (flag == 1) {
+                                                Users log = (Users) context;
+                                                log.tochat();
+
+                                                //chat exist
+                                            } else {
+                                                //chat doesn't exit
+                                                ref.child(key).child("chats").child(sid).child("message1").child("id").setValue("0");
+                                                //Users log = (Users) context;
+                                                //log.tochat();
+
+                                              //  ref.child(key).child("chats").child(sid).child("message1").child("message").setValue("hi");
+
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
                                 }
+                               SharedPreferences.Editor editor=sharedpreference.edit();
+                                editor.putString(tid,key);
+                                editor.commit();
 
                             }
                             //DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Teacher").child(key).child("chats");
@@ -110,38 +138,6 @@ public class Teacheradapter extends BaseAdapter {
                             }
                         }
                  );
-                ref.child("chats").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds: dataSnapshot.getChildren())
-                        {
-                            studentid=ds.getValue().toString();
-                            if(sid==studentid)
-                            {
-                                flag=1;
-                            }
-
-
-                        }
-                        if(flag==1)
-                        {
-                            //chat exist
-                        }
-                        else
-                        {
-                            //chat doesn't exit
-                            ref.child(key).child("chats").child(sid).child("message1").child("id").setValue("0");
-                           ref.child(key).child("chats").child(sid).child("message1").child("message").setValue("hi");
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
 
 
 

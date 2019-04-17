@@ -47,7 +47,7 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
     EditText iemail,ipassword,iphno,icpassword,iname;
     public static final String mypreference = "mypref";
     public static final String Name = "nameKey";
-    public static final String Email = "emailKey";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +66,7 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
         if (sharedpreferences.contains(Name)) {
             iname.setText(sharedpreferences.getString(Name, ""));
         }
-        if (sharedpreferences.contains(Email)) {
-            iemail.setText(sharedpreferences.getString(Email, ""));
 
-        }
         spinner.setOnItemSelectedListener(this);
         List<String> categories = new ArrayList<String>();
         categories.add("CLASS");
@@ -95,7 +92,7 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
         String e = iemail.getText().toString();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(Name, n);
-        editor.putString(Email, e);
+       // editor.putString(Email, e);
         editor.commit();
     }
     public void addListenerOnButton() {

@@ -45,6 +45,7 @@ public class Users extends AppCompatActivity {
     ProgressDialog pd;
     ArrayList<com.example.xapp.Teachername> teachers;
     Teacheradapter teacheradapter;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,10 +149,21 @@ public class Users extends AppCompatActivity {
             }
         });*/
     }
+    void tochat()
+    {
+        Intent intent=new Intent(this,Chat.class);
+        startActivity(intent);
+    }
     void setteachers()
     {
         teacheradapter=new Teacheradapter(teachers,Users.this);
+        Bundle extras= getIntent().getExtras();
+        if(extras!=null)
+        {
+            email=extras.getString("MY_KEY");
+            Log.i("safwan",email); }
         usersList = (ListView)findViewById(R.id.usersList);
+
         usersList.setAdapter(teacheradapter);
 
     }
