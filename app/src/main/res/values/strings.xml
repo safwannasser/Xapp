@@ -29,5 +29,31 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="vbtn">View Video</string>
+    <string name="todo">TODO</string>
+    <string name="cop">Choose an Option</string>
+    <string name="Submit">Reset Password</string>
+    <string name="title_activity_terms_conditions">Terms and +Conditions</string>
+    <string name="large_text">
+        "      X values your trust. In order to honour that trust, X adheres to ethical standards in gathering, using, and safeguarding any information you provide."
+"\n\nUser Provided Information"
+"\n\n    The Application records the information you provide when you download and register for the Application or Services or products. When you register with us, you generally provide (a) your name, email address, phone number, password, (d) information you enter into its system when using the Application  such as while asking doubts and taking tests. The said information collected from the users could be categorized as “Personal Information“, “Sensitive Personal Information” and “Associated Information“. Personal Information, Sensitive Personal Information and Associated Information (each as individually defined under this Information Technology (Reasonable security practices and procedures and sensitive personal data or information) Rules, 2011 (the “Data Protection Rules“)) shall collectively be referred to as “Information” in this Policy."
+        "\n\nContact Information"
+        "\n\nNimmi Jose
+        nimjos8397@gmail.com
+        8138817528
+         \nRithu Augustine
+        rithuaugus@gmail.com
+        9497029866
+         \nSafwan Abdul Nazaruddin
+        mesafwan@gmsil.com
+        7736220172
+         \nYadu B
+        yadubniketham@gmail.com
+        8075390774"
+
+        "\n\n\n\n\n\n                                            ©2019, X. All rights reserved."
+
+
+    </string>
 
 </resources>

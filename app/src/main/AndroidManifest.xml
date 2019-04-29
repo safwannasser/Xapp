@@ -17,9 +17,13 @@
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".TermsConditions"
+            android:label="@string/title_activity_terms_conditions"
+            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+        <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+            android:theme="@style/MyMaterialTheme.NoActionBar" />
         <activity android:name=".Displayscore" />
         <activity android:name=".Quiz" />
         <activity android:name=".Rating" />
@@ -31,6 +35,7 @@
         <activity android:name=".Science" />
         <activity android:name=".Register" />
         <activity android:name=".login" />
+        <activity android:name=".PasswordActivity" />
         <activity android:name=".Subject" />
         <activity android:name=".MainActivity">
             <intent-filter>

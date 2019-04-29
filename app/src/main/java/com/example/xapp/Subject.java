@@ -166,6 +166,11 @@ public class Subject extends AppCompatActivity {
         Intent intent=new Intent(this,Digestive.class);
         startActivity(intent);
     }
+    void tophoto()
+    {
+        Intent intent=new Intent(this,Photosyn.class);
+        startActivity(intent);
+    }
 
    /* public void addListenerOnButton()
     {

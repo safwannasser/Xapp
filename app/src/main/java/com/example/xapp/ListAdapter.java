@@ -96,7 +96,8 @@ public class ListAdapter extends BaseAdapter {
                   if(position==0)
                    subject.toDigest();
                   else
-                      showToastMessage("Under Maintanence",500);
+                      subject.tophoto();
+                      //showToastMessage("Under Maintanence",500);
 
 
 

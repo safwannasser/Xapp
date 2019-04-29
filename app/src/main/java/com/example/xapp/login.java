@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class login extends AppCompatActivity {
     Button r,l;
+    TextView f;
     EditText iemail,ipassword;
     FirebaseAuth Auth;
     ProgressDialog progressDialog;
@@ -42,6 +44,7 @@ public class login extends AppCompatActivity {
 
     public static final String Email = "emailKey";
     public static final String ID = "sid";
+    String sid;
 
     int lock=0;
 
@@ -54,6 +57,7 @@ public class login extends AppCompatActivity {
             finish();
         }*/
         setContentView(R.layout.activity_login);
+        f=(TextView) findViewById(R.id.forgotpassword);
         Auth = FirebaseAuth.getInstance();
         iemail = (EditText) findViewById(R.id.uname);
         ipassword = (EditText) findViewById(R.id.password);
@@ -135,7 +139,7 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Log.i("tevin",dataSnapshot+"");
-                        String sid = "";
+                         sid = "";
                         for(DataSnapshot studentsnapshot : dataSnapshot.getChildren())
                         {
                             sid=studentsnapshot.getKey();
@@ -180,6 +184,7 @@ public class login extends AppCompatActivity {
                                         Save();
                                         while(lock==0);
                                         Intent intent= new Intent(context,Profile.class);
+                                        intent.putExtra("MY_KEY",sid );
                                         startActivity(intent);
                                         finish();
                                     }
@@ -210,5 +215,11 @@ public class login extends AppCompatActivity {
             }
 
             ;
+        });
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(login.this, PasswordActivity.class));
+            }
         });
     }}

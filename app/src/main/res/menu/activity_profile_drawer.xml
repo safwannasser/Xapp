@@ -4,10 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/edit_profile"
-            android:icon="@drawable/profile_edit"
-            android:title="Edit Profile" />
+
         <item
             android:id="@+id/logout"
             android:icon="@drawable/logout"
@@ -16,10 +13,7 @@
 
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+
             <item
                 android:id="@+id/tnc"
                 android:icon="@drawable/terms"
