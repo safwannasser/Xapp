@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="50dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/inner_padding_right"
+        android:text="@string/sign_up"
+        android:textSize="30sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/email"
+            android:hint="@string/name"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/mail"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_phno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/phno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/phone"
+            android:hint="@string/phno"
+            android:inputType="phone"
+            android:maxLength="10" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/std"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="wrap_content"
+        android:paddingTop="20dp"
+        android:spinnerMode="dropdown"></Spinner>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_password_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/pword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/key"
+            android:drawableLeft="@drawable/key"
+            android:drawablePadding="2dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLength="6"
+            android:textSize="15sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_password_field2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/cpword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/key"
+            android:drawableLeft="@drawable/key"
+            android:drawablePadding="2dp"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:maxLength="6"
+            android:textSize="15sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/rbtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/rbtn"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/r2lbtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/textColorPrimary"
+        android:text="@string/r2lbtn"
+        android:textColor="@color/navigationBarColor" />
+
+
+</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

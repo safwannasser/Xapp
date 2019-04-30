@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Profile"
+    tools:showIn="@layout/app_bar_profile">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/todo" />
+            <!--android:src="@drawable/navigation_header_image"-->
+
+
+        <ImageButton
+            android:id="@+id/user_profile_photo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-60dp"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="TODO" tools:targetApi="lollipop" />
+           <!-- android:src="@drawable/profile1"-->
+
+
+        <!-- android:background="@android:drawable/screen_background_dark_transparent"-->
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="176dp"
+            android:layout_below="@+id/header_cover_image"
+            android:elevation="4dp"
+            android:paddingBottom="24dp">
+
+        <!--   android:background="@drawable/navigation_header_image2"-->
+
+
+            <TextView
+                android:id="@+id/student_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="76dp"
+                android:text="@string/nav_header_title"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_layout"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/colorAccent"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/vbtn"
+                android:id="@+id/button"
+                android:focusable="true" />
+
+            <Button
+                android:id="@+id/rank"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button"
+                android:text="Rank List" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>
