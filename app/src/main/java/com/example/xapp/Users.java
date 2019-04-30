@@ -28,6 +28,8 @@ public class Users extends AppCompatActivity {
     ArrayList<com.example.xapp.Teachername> teachers;
     Teacheradapter teacheradapter;
     String email;
+    DatabaseReference databaseReference;
+    int trank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,9 @@ public class Users extends AppCompatActivity {
         setContentView(R.layout.activity_users);
 
 
-        noUsersText = (TextView)findViewById(R.id.username);
-        DatabaseReference databaseReference;
+        /*noUsersText = (TextView)findViewById(R.id.username);*/
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Teacher");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -44,11 +47,18 @@ public class Users extends AppCompatActivity {
                teachers= new ArrayList<Teachername>();
                 tcount = (int) dataSnapshot.getChildrenCount();
                 int i=0;
-                for(DataSnapshot ds:dataSnapshot.getChildren())
+               for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
                     Teachername teach= new Teachername();
+                  /*  for(DataSnapshot ds1:dataSnapshot.child("rating").getChildren())
+                    {
+                        trank=Integer.parseInt(ds1.getValue().toString());
+                    }*/
+
+                  //  int trank=Integer.parseInt(ds.child("rating").getValue().toString());
 
                    String tname= ds.child("name").getValue().toString();
+
                     teach.name=tname;
                     teachers.add(teach);
 

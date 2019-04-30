@@ -9,6 +9,7 @@
     <string name="pword">Password</string>
     <string name="Cpword">Confirm password</string>
     <string name="rbtn">Register</string>
+    <string name="ct">Inbox</string>
     <string name="r2lbtn">Already registered? Sign in!</string>
     <string name="login">Sign in</string>
     <string name="uname">Username</string>

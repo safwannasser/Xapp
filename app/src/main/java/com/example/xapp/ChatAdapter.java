@@ -42,7 +42,7 @@ public class ChatAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         TextView m_text;
-        if(msgList.get(position).sender.equals("t"))
+        if(msgList.get(position).msg_sender.equals("s"))
         {
             convertView = inflater.inflate(R.layout.message_sent,null);
             m_text=(TextView)convertView.findViewById(R.id.msg_sent);
@@ -52,7 +52,7 @@ public class ChatAdapter extends BaseAdapter {
             convertView=inflater.inflate(R.layout.message_recieved,null);
             m_text=(TextView)convertView.findViewById(R.id.msg_recieved);
         }
-        m_text.setText(msgList.get(position).msgtxt);
+        m_text.setText(msgList.get(position).msg_txt);
         return convertView;
 
     }

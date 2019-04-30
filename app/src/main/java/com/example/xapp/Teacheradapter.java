@@ -89,7 +89,7 @@ public class Teacheradapter extends BaseAdapter {
                                 for(DataSnapshot teachersnapshot : dataSnapshot.getChildren())
                                 {
                                      key= teachersnapshot.getKey();
-                                    Log.i("rithuuu",key);
+                                    Log.i("rithuuu",key+" haha");
                                     SharedPreferences.Editor editor = sharedpreferences.edit();
                                     editor.putString(tid,key);
                                     editor.commit();

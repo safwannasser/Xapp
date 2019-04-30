@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/todo" />
-            <!--android:src="@drawable/navigation_header_image"-->
+            android:contentDescription="@string/todo"
+            android:src="@drawable/navigation_header_image"/>
 
 
         <ImageButton
@@ -31,11 +31,11 @@
             android:elevation="5dp"
             android:padding="20dp"
             android:scaleType="centerCrop"
-            android:contentDescription="TODO" tools:targetApi="lollipop" />
-           <!-- android:src="@drawable/profile1"-->
+            android:contentDescription="TODO" tools:targetApi="lollipop"
+           android:src="@drawable/profile1"
 
 
-        <!-- android:background="@android:drawable/screen_background_dark_transparent"-->
+         android:background="@android:drawable/screen_background_dark_transparent"/>
 
         <RelativeLayout
             android:id="@+id/profile_layout"
@@ -43,9 +43,9 @@
             android:layout_height="176dp"
             android:layout_below="@+id/header_cover_image"
             android:elevation="4dp"
-            android:paddingBottom="24dp">
+            android:paddingBottom="24dp"
 
-        <!--   android:background="@drawable/navigation_header_image2"-->
+          android:background="@drawable/navigation_header_image2">
 
 
             <TextView

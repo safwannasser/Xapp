@@ -86,7 +86,7 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
         spinner.setAdapter(dataAdapter);
 
         addListenerOnButton();
-    }
+    }}
     public void save() {
         String n = iname.getText().toString();
         String e = iemail.getText().toString();

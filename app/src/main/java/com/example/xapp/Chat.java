@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Chat extends AppCompatActivity {
     ImageView send;
@@ -39,14 +40,15 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         addlisteneronbutton();
-        listenMsgs();
-        sharedpreference = context.getSharedPreferences(mypreference,
+        sharedpreference = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        sharedpreferences=context.getSharedPreferences(mypreferences,Context.MODE_PRIVATE);
+        sharedpreferences=getSharedPreferences(mypreferences,Context.MODE_PRIVATE);
         teacherid   =sharedpreference.getString(tid,"heeh");
         Log.i("studentss",teacherid);
         studentsid=sharedpreferences.getString(ID,"hah");
+        Log.i("studentname",studentsid);
         ts=teacherid+studentsid;
+        msgTriggerListen();
     }
 
 
@@ -56,25 +58,30 @@ public class Chat extends AppCompatActivity {
         message_list=findViewById(R.id.mlist);
         msg=findViewById(R.id.messageArea);
 
-
-
-
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference ref=database.getReference("Chats");
-        ref.child(ts).addValueEventListener(new ValueEventListener() {
+        ref.child(ts).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
-                {        msglist=new ArrayList<Messages>();
+                {
+
+                    msglist=new ArrayList<Messages>();
                         for(DataSnapshot ds:dataSnapshot.getChildren())
                         {
+                            if(!ds.getKey().equals("tot_num")&&!ds.getKey().equals("msg_trigger")) {
+                                Messages newone = new Messages();
+                                newone.msg_txt = ds.child("msg_txt").getValue().toString();
 
-                            Messages newone=new Messages();
-                            newone.msgtxt=ds.child("msg_text").getValue().toString();
-                            newone.timestamp=ds.child("mgs_timestamp").getValue().toString();
-                            newone.timestamp=ds.child("msg_sender").getValue().toString();
-                            msglist.add(newone);
+                               // newone.timestamp = ds.child("msg_timestamp").getValue().toString();
+                                newone.msg_sender = ds.child("msg_sender").getValue().toString();
 
+
+
+
+
+                                msglist.add(newone);
+                            }
                         }
                     if (chatAdapter == null) {
                         chatAdapter = new ChatAdapter(Chat.this, msglist);
@@ -97,6 +104,24 @@ public class Chat extends AppCompatActivity {
         });
 
     }
+    void msgTriggerListen()
+    {
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference ref=database.getReference("Chats");
+        ref.child(ts).child("msg_trigger").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listenMsgs();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     public void addlisteneronbutton()
     {
@@ -104,8 +129,14 @@ public class Chat extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText msgs;
+                msgs=findViewById(R.id.messageArea);
+
+                String m=msgs.getText().toString();
+                msgs.setText("");
                 FirebaseDatabase database=FirebaseDatabase.getInstance();
                 DatabaseReference myref=database.getReference("Chats");
+
                 myref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -118,7 +149,12 @@ public class Chat extends AppCompatActivity {
                         {
                             total_number=1;
                         }
+                        myref.child(ts).child("tot_num").setValue(total_number);
 
+                        myref.child(ts).child(total_number+"").child("msg_txt").setValue(m);
+                        myref.child(ts).child(total_number+"").setValue(new Messages(m,"s"));
+                        myref.child(ts).child("msg_trigger").setValue(new Date()+"");
+                        listenMsgs();
                     }
 
                     @Override
@@ -126,7 +162,7 @@ public class Chat extends AppCompatActivity {
 
                     }
                 });
-                myref.child(ts).child("tot_num").setValue(total_number);
+
             }
         });
 
