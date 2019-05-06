@@ -19,23 +19,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         Button r,score;
+        ImageView qr_code_button;
         String getemail;
 
   //   public static final String ID = "sid";
     TextView Student_n,std;
 
   String sid,Sn;
+
+    //qr code scanner object
+    private IntentIntegrator qrScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,10 @@ public class Profile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         addListenerOnButton();
+
+
+
+
         Bundle extras= getIntent().getExtras();
         if(extras!=null)
         {
@@ -156,7 +168,7 @@ public class Profile extends AppCompatActivity
     }
 
     public void addListenerOnButton()
-    {;
+    {
 
         r=findViewById(R.id.button);
         r.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +186,24 @@ public class Profile extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+
+        //qrcode
+
+        //intializing scan object
+        qrScan = new IntentIntegrator(this);
+
+        qr_code_button = findViewById(R.id.qrcode_imageview);
+        qr_code_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //initiating the qr code scan
+                qrScan.setOrientationLocked(false);
+                qrScan.initiateScan();
+            }
+        });
+
+
     }
   /*  public Void get()
     {
@@ -190,4 +220,39 @@ public class Profile extends AppCompatActivity
         //   email.setText(sharedpreferences.getString(Email, ""));
     }
     */
+
+
+
+    //Getting the scan results
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            //if qrcode has nothing in it
+            if (result.getContents() == null) {
+                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+            } else {
+                //if qr contains data
+
+                //converting the data to json
+//                    JSONObject obj = new JSONObject(result.getContents());
+
+                String scanned_str = result.getContents();
+                   /* //setting values to textviews
+                    textViewName.setText(obj.getString("name"));
+                    textViewAddress.setText(obj.getString("address"));*/
+
+                Intent intent = new Intent(Profile.this,Digestive.class);
+                startActivity(intent);
+
+
+//                textViewName.setText(scanned_str);
+                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
 }
