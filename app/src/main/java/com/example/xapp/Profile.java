@@ -243,12 +243,28 @@ public class Profile extends AppCompatActivity
                     textViewName.setText(obj.getString("name"));
                     textViewAddress.setText(obj.getString("address"));*/
 
-                Intent intent = new Intent(Profile.this,Digestive.class);
-                startActivity(intent);
+
+
+
+                Intent qr_intent;
+                switch(scanned_str)
+                {
+                    case "v_5_sci_dig":
+                        qr_intent = new Intent(Profile.this,Digestive.class);
+                        startActivity(qr_intent);
+                        break;
+                    case "v_5_sci_ele":
+                        qr_intent = new Intent(Profile.this,Photosyn.class);
+                        startActivity(qr_intent);
+                        break;
+                    default:
+                        Toast.makeText(this, "Please scan using a valid QR code", Toast.LENGTH_SHORT).show();
+
+                }
 
 
 //                textViewName.setText(scanned_str);
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
