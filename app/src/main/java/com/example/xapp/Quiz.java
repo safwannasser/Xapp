@@ -340,7 +340,7 @@ public class Quiz extends Activity {
         studentsid=sharedpreferences.getString(ID,"hah");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Students");
-        myRef.child("ranking").child("digestive_system").setValue(str1);
+        myRef.child(studentsid).child("ranking").child("digestive_system").setValue(str1);
 
 
 

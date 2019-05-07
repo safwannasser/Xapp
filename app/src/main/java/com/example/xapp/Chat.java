@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +30,7 @@ public class Chat extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreferences = "myprefer";
     public static final String mypreference = "myprefer";
-    int total_number;
+    int total_number,flag=0;
     Context context;
     public static final String tid = "tid";
     public static final String ID = "sid";
@@ -76,12 +78,15 @@ public class Chat extends AppCompatActivity {
                                // newone.timestamp = ds.child("msg_timestamp").getValue().toString();
                                 newone.msg_sender = ds.child("msg_sender").getValue().toString();
 
-
-
-
-
                                 msglist.add(newone);
                             }
+                            String ms_sender=ds.child("msg_sender").getValue(String.class);
+                            ms_sender=ms_sender+"";
+                            Log.d("Test msg sender",ms_sender);
+                            if (ms_sender.equals("t")){
+                                flag=1;
+                            }
+
                         }
                     if (chatAdapter == null) {
                         chatAdapter = new ChatAdapter(Chat.this, msglist);
@@ -165,6 +170,35 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+
+    }
+   public void onBackPressed()
+    {
+        if(flag==1)
+        {
+            LinearLayout l;
+            l=findViewById(R.id.Dialog);
+            l.setVisibility(View.VISIBLE);
+            EditText feed;
+            Button subm,later;
+            feed=findViewById(R.id.feedback);
+            subm=findViewById(R.id.Submit);
+            later=findViewById(R.id.Notnow);
+            subm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String info=feed.getText().toString();
+                    feed.setText("");
+                    if(info.equals(""))
+                        Toast.makeText(Chat.this,"Enter feedback and submit" , Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+
+        }
+        else
+            super.onBackPressed();
 
     }
 
