@@ -10,6 +10,9 @@
     <string name="Cpword">Confirm password</string>
     <string name="rbtn">Register</string>
     <string name="ct">Inbox</string>
+    <string name="rank">Rank List</string>
+    <string name="reqbtn">Request Video</string>
+    <string name="progressbtn">Learning Analysis</string>
     <string name="r2lbtn">Already registered? Sign in!</string>
     <string name="login">Sign in</string>
     <string name="uname">Username</string>
@@ -34,7 +37,7 @@
     <string name="cop">Choose an Option</string>
     <string name="Submit">Reset Password</string>
     <string name="nochat">No messages to display</string>
-    <string name="title_activity_terms_conditions">Terms and +Conditions</string>
+    <string name="title_activity_terms_conditions">Terms and Conditions</string>
     <string name="large_text">
         "      X values your trust. In order to honour that trust, X adheres to ethical standards in gathering, using, and safeguarding any information you provide."
 "\n\nUser Provided Information"

@@ -43,11 +43,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
-
-
-
-
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 
 }
+repositories { maven { url "https://jitpack.io" } }
 apply plugin: 'com.google.gms.google-services'

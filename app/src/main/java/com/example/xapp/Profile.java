@@ -1,5 +1,8 @@
 package com.example.xapp;
 
+import android.content.DialogInterface;
+import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import android.app.AlertDialog;
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-        Button r,score;
+        Button r,score,pro,req;
         ImageView qr_code_button;
         String getemail;
 
@@ -46,6 +51,8 @@ public class Profile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         addListenerOnButton();
+        graph();
+        request();
 
 
 
@@ -150,11 +157,11 @@ public class Profile extends AppCompatActivity
 
         } /*else if (id == R.id.nav_share) {
 
-        }*/ /*else if (id == R.id.tnc) {
+        }*/ else if (id == R.id.tnc) {
             Intent intent=new Intent(this,TermsConditions.class);
             startActivity(intent);
 
-        }*/
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -264,5 +271,63 @@ public class Profile extends AppCompatActivity
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    public void graph()
+    {
+        pro=findViewById(R.id.button3);
+        pro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, Graph.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void request()
+    {
+        req=findViewById(R.id.button2);
+        req.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showAddItemDialog(Profile.this);
+            }
+        });
+    }
+
+    private void showAddItemDialog(Context c) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Add a new request")
+                .setMessage("Enter the topic")
+                .setView(taskEditText)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String task = String.valueOf(taskEditText.getText());
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference reference= database.getReference("Requests");
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Integer total= Integer.parseInt(dataSnapshot.child("tot_req").getValue().toString());
+                                total=total+1;
+                                reference.child(total+"").setValue(task);
+                                reference.child("tot_req").setValue(total);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
+    }
+
+
 
 }

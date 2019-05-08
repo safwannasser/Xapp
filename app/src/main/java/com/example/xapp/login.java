@@ -216,10 +216,10 @@ public class login extends AppCompatActivity {
 
             ;
         });
-        /*f.setOnClickListener(new View.OnClickListener() {
+        f.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(login.this, PasswordActivity.class));
             }
-        });*/
+        });
     }}

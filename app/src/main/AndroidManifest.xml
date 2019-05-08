@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Digestive_rank"></activity>
+        <activity android:name=".Graph"></activity>
+        <activity android:name=".Digestive_rank" />
         <activity android:name=".Ranking" />
         <activity
             android:name=".TermsConditions"
@@ -46,13 +47,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-
-
     </application>
 
 </manifest>

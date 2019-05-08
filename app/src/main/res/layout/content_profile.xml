@@ -74,7 +74,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@color/colorAccent"
+                android:background="@color/button"
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
@@ -83,11 +83,39 @@
                 android:focusable="true" />
 
             <Button
-                android:id="@+id/rank"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/button"
-                android:text="Rank List" />
+                android:layout_margin="5dp"
+                android:background="@color/button"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/rank"
+                android:id="@+id/rank"
+                android:focusable="true" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/button"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/reqbtn"
+                android:id="@+id/button2"
+                android:focusable="true" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/button"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/progressbtn"
+                android:id="@+id/button3"
+                android:focusable="true" />
 
 
         </LinearLayout>
