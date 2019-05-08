@@ -1,6 +1,7 @@
 package com.example.xapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,13 +32,15 @@ public class Chat extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String mypreferences = "myprefer";
     public static final String mypreference = "myprefer";
-    int total_number,flag=0;
+    int total_number, flag = 0;
     Context context;
+    int total_num;
     public static final String tid = "tid";
     public static final String ID = "sid";
-    String teacherid,studentsid,ts;
+    String teacherid, studentsid, ts;
     ArrayList<Messages> msglist;
-    ChatAdapter chatAdapter=null;
+    ChatAdapter chatAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,50 +48,48 @@ public class Chat extends AppCompatActivity {
         addlisteneronbutton();
         sharedpreference = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
-        sharedpreferences=getSharedPreferences(mypreferences,Context.MODE_PRIVATE);
-        teacherid   =sharedpreference.getString(tid,"heeh");
-        Log.i("studentss",teacherid);
-        studentsid=sharedpreferences.getString(ID,"hah");
-        Log.i("studentname",studentsid);
-        ts=teacherid+studentsid;
+        sharedpreferences = getSharedPreferences(mypreferences, Context.MODE_PRIVATE);
+        teacherid = sharedpreference.getString(tid, "heeh");
+        Log.i("studentss", teacherid);
+        studentsid = sharedpreferences.getString(ID, "hah");
+        Log.i("studentname", studentsid);
+        ts = teacherid + studentsid;
         msgTriggerListen();
     }
 
 
-    void listenMsgs()
-    { ListView message_list;
+    void listenMsgs() {
+        ListView message_list;
         EditText msg;
-        message_list=findViewById(R.id.mlist);
-        msg=findViewById(R.id.messageArea);
+        message_list = findViewById(R.id.mlist);
+        msg = findViewById(R.id.messageArea);
 
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
-        DatabaseReference ref=database.getReference("Chats");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Chats");
         ref.child(ts).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
+                if (dataSnapshot.exists()) {
 
-                    msglist=new ArrayList<Messages>();
-                        for(DataSnapshot ds:dataSnapshot.getChildren())
-                        {
-                            if(!ds.getKey().equals("tot_num")&&!ds.getKey().equals("msg_trigger")) {
-                                Messages newone = new Messages();
-                                newone.msg_txt = ds.child("msg_txt").getValue().toString();
+                    msglist = new ArrayList<Messages>();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if (!ds.getKey().equals("tot_num") && !ds.getKey().equals("msg_trigger")) {
+                            Messages newone = new Messages();
+                            newone.msg_txt = ds.child("msg_txt").getValue().toString();
 
-                               // newone.timestamp = ds.child("msg_timestamp").getValue().toString();
-                                newone.msg_sender = ds.child("msg_sender").getValue().toString();
+                            // newone.timestamp = ds.child("msg_timestamp").getValue().toString();
+                            newone.msg_sender = ds.child("msg_sender").getValue().toString();
 
-                                msglist.add(newone);
-                            }
-                            String ms_sender=ds.child("msg_sender").getValue(String.class);
-                            ms_sender=ms_sender+"";
-                            Log.d("Test msg sender",ms_sender);
-                            if (ms_sender.equals("t")){
-                                flag=1;
-                            }
-
+                            msglist.add(newone);
                         }
+                        String ms_sender = ds.child("msg_sender").getValue(String.class);
+                        ms_sender = ms_sender + "";
+                        Log.d("Test msg sender", ms_sender);
+                        if (ms_sender.equals("t")) {
+                            flag = 1;
+                        }
+
+                    }
                     if (chatAdapter == null) {
                         chatAdapter = new ChatAdapter(Chat.this, msglist);
                         message_list.setAdapter(chatAdapter);
@@ -95,9 +97,7 @@ public class Chat extends AppCompatActivity {
                         chatAdapter.getData(msglist);
                         chatAdapter.notifyDataSetChanged();
                     }
-                }
-                else
-                {
+                } else {
                     Toast.makeText(Chat.this, getString(R.string.nochat), Toast.LENGTH_LONG).show();
                 }
             }
@@ -109,10 +109,10 @@ public class Chat extends AppCompatActivity {
         });
 
     }
-    void msgTriggerListen()
-    {
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
-        DatabaseReference ref=database.getReference("Chats");
+
+    void msgTriggerListen() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Chats");
         ref.child(ts).child("msg_trigger").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -128,37 +128,34 @@ public class Chat extends AppCompatActivity {
     }
 
 
-    public void addlisteneronbutton()
-    {
-        send=(ImageView)findViewById(R.id.sendButton);
+    public void addlisteneronbutton() {
+        send = (ImageView) findViewById(R.id.sendButton);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText msgs;
-                msgs=findViewById(R.id.messageArea);
+                msgs = findViewById(R.id.messageArea);
 
-                String m=msgs.getText().toString();
+                String m = msgs.getText().toString();
                 msgs.setText("");
-                FirebaseDatabase database=FirebaseDatabase.getInstance();
-                DatabaseReference myref=database.getReference("Chats");
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myref = database.getReference("Chats");
 
                 myref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()) {
+                        if (dataSnapshot.exists()) {
 
                             total_number = Integer.parseInt(dataSnapshot.child(ts).child("tot_num").getValue().toString());
-                            total_number=total_number+1;
-                        }
-                        else
-                        {
-                            total_number=1;
+                            total_number = total_number + 1;
+                        } else {
+                            total_number = 1;
                         }
                         myref.child(ts).child("tot_num").setValue(total_number);
 
-                        myref.child(ts).child(total_number+"").child("msg_txt").setValue(m);
-                        myref.child(ts).child(total_number+"").setValue(new Messages(m,"s"));
-                        myref.child(ts).child("msg_trigger").setValue(new Date()+"");
+                        myref.child(ts).child(total_number + "").child("msg_txt").setValue(m);
+                        myref.child(ts).child(total_number + "").setValue(new Messages(m, "s"));
+                        myref.child(ts).child("msg_trigger").setValue(new Date() + "");
                         listenMsgs();
                     }
 
@@ -172,11 +169,10 @@ public class Chat extends AppCompatActivity {
         });
 
     }
-   public void onBackPressed()
-    {
-        if(flag==1)
-        {
-            LinearLayout l;
+
+    public void onBackPressed() {
+        if (flag == 1) {
+            /*LinearLayout l;
             l=findViewById(R.id.Dialog);
             l.setVisibility(View.VISIBLE);
             EditText feed;
@@ -188,19 +184,103 @@ public class Chat extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String info=feed.getText().toString();
+
                     feed.setText("");
                     if(info.equals(""))
                         Toast.makeText(Chat.this,"Enter feedback and submit" , Toast.LENGTH_LONG).show();
+                    else
+                    {
+                        FirebaseDatabase database=FirebaseDatabase.getInstance();
+                        DatabaseReference reference=database.getReference("Teacher").child(teacherid).child("Feedback");
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists())
+                                { total_num = Integer.parseInt(dataSnapshot.child("tot_feed").getValue().toString());
+                                total_num=total_num+1;}
+                                else
+                                    total_num=1;
+                                reference.child("tot_feed").setValue(total_num);
+                                reference.child(total_num+"").setValue(info);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        Chat.super.onBackPressed();
+                    }
 
                 }
             });
+            later.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Chat.super.onBackPressed();
+                }
+            });*/
 
 
-        }
-        else
+            //newdialog
+            showAddItemDialog(Chat.this);
+
+
+        } else
             super.onBackPressed();
+
 
     }
 
+    private void showAddItemDialog(Context c) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Feedback")
+                .setMessage("Enter Feedback")
+                .setView(taskEditText)
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String task = String.valueOf(taskEditText.getText());
+                        if (task.equals(""))
+                            Toast.makeText(Chat.this, "Enter feedback and submit", Toast.LENGTH_LONG).show();
+                        else {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference reference = database.getReference("Teacher").child(teacherid).child("Feedback");
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        total_num = Integer.parseInt(dataSnapshot.child("tot_feed").getValue().toString());
+                                        total_num = total_num + 1;
+                                    } else
+                                        total_num = 1;
+                                    reference.child("tot_feed").setValue(total_num);
+                                    reference.child(total_num + "").setValue(task);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+                            });
+                            Chat.super.onBackPressed();
+                        }
+                    }
+                })
+                .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Chat.super.onBackPressed();
+                    }
+                })
+                .create();
+        dialog.show();
+
+    }
 }
 
