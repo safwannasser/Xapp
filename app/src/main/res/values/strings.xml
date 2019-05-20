@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Xapp</string>
+    <string name="app">X</string>
+    <string name="L_app">THE LEARNING APP </string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="phno">Phone Number</string>
+    <string name="pword">Password</string>
+    <string name="Cpword">Confirm password</string>
+    <string name="rbtn">Register</string>
+    <string name="ct">Inbox</string>
+    <string name="rank">Rank List</string>
+    <string name="reqbtn">Request Video</string>
+    <string name="progressbtn">Learning Analysis</string>
+    <string name="r2lbtn">Already registered? Sign in!</string>
+    <string name="login">Sign in</string>
+    <string name="uname">Username</string>
+    <string name="log">Login</string>
+    <string name="register">Not yet registered?Sign up!</string>
+    <string name="welcome">Welcome</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="ds">Digestive system</string>
+    <string name="gallows">The Gallows</string>
+    <string name="head">The Head</string>
+    <string name="body">The Body</string>
+    <string name="arm">An Arm</string>
+    <string name="leg">A Leg</string>
+    <string name="photo">Photosynthesis</string>
+    <string name="savelogin">Remember me?</string>
+    <string name="textview">TextView</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Name</string>
+    <string name="nav_header_subtitle">Studies at...</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="vbtn">View Video</string>
+    <string name="todo">TODO</string>
+    <string name="cop">Choose an Option</string>
+    <string name="Submit">Reset Password</string>
+    <string name="nochat">No messages to display</string>
+    <string name="title_activity_terms_conditions">Terms and Conditions</string>
+    <string name="large_text">
+        "      X values your trust. In order to honour that trust, X adheres to ethical standards in gathering, using, and safeguarding any information you provide."
+"\n\nUser Provided Information"
+"\n\n    The Application records the information you provide when you download and register for the Application or Services or products. When you register with us, you generally provide (a) your name, email address, phone number, password, (d) information you enter into its system when using the Application  such as while asking doubts and taking tests. The said information collected from the users could be categorized as “Personal Information“, “Sensitive Personal Information” and “Associated Information“. Personal Information, Sensitive Personal Information and Associated Information (each as individually defined under this Information Technology (Reasonable security practices and procedures and sensitive personal data or information) Rules, 2011 (the “Data Protection Rules“)) shall collectively be referred to as “Information” in this Policy."
+        "\n\nContact Information"
+        "\n\nNimmi Jose
+        nimjos8397@gmail.com
+        8138817528
+         \nRithu Augustine
+        rithuaugus@gmail.com
+        9497029866
+         \nSafwan Abdul Nazaruddin
+        mesafwan@gmsil.com
+        7736220172
+         \nYadu B
+        yadubniketham@gmail.com
+        8075390774"
+
+        "\n\n\n\n\n\n                                            ©2019, X. All rights reserved."
+
+
+    </string>
+    <string name="no_users_found">No users found!</string>
+
+</resources>

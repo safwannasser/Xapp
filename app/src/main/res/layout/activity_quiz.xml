@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/color"
+
+        >
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="12dp"
+        android:text="Quiz"
+        android:textColor="@color/color"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/firstquestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="85dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fquestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/firstquestion"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <RadioGroup
+                    android:id="@+id/fans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/b1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/b2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/b3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:text="Submit" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/secondquestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstquestion"
+                android:layout_marginBottom="81dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/squestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/firstquestion"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <RadioGroup
+                    android:id="@+id/sans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/b4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/b5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/b6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:text="Submit" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/thirdquestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/secondquestion"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="81dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tquestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/firstquestion"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <RadioGroup
+                    android:id="@+id/tans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/b7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/b8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/b9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:text="Submit" />
+
+            </LinearLayout>
+
+          <!--  <LinearLayout
+                android:id="@+id/fourthquestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/secondquestion"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="81dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fourquestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/firstquestion"
+                    android:text="4. Where is the last stage of the digestive system?"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <RadioGroup
+                    android:id="@+id/fourans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/b10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small intestine" />
+
+                    <RadioButton
+                        android:id="@+id/b11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kidney" />
+
+                    <RadioButton
+                        android:id="@+id/b12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Large intestine" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:text="Submit" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fifthquestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/secondquestion"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="81dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fivequestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/firstquestion"
+                    android:text="5.Which of the following is not a part of the digestive system?"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <RadioGroup
+                    android:id="@+id/fifans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/b13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gall bladder" />
+
+                    <RadioButton
+                        android:id="@+id/b14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pancreas" />
+
+                    <RadioButton
+                        android:id="@+id/b15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Windpipe" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:text="Submit" />
+
+            </LinearLayout>-->
+
+            <Button
+                android:id="@+id/endquiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:text="END QUIZ"
+                android:background="@color/red"
+                android:textColor="@color/color"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>
