@@ -49,5 +49,12 @@
         android:layout_below="@+id/ratebutton"
         android:layout_centerInParent="true"
         android:text="Take Test" />
+    <Button
+        android:id="@+id/gamebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quizbutton"
+        android:layout_centerInParent="true"
+        android:text="Play Game" />
 
 </RelativeLayout>

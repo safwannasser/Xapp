@@ -139,23 +139,27 @@ public class Chat extends AppCompatActivity {
                 String m = msgs.getText().toString();
                 msgs.setText("");
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myref = database.getReference("Chats");
+                DatabaseReference myref = database.getReference("Chats").child(ts);
 
                 myref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-
-                            total_number = Integer.parseInt(dataSnapshot.child(ts).child("tot_num").getValue().toString());
+                        try
+                        {
+                            total_number = Integer.parseInt(dataSnapshot.child("tot_num").getValue().toString());
                             total_number = total_number + 1;
-                        } else {
+                        } catch (NullPointerException e){
                             total_number = 1;
                         }
-                        myref.child(ts).child("tot_num").setValue(total_number);
+                        catch (Exception e)
+                        {
+                            total_number = 1;
+                        }
+                        myref.child("tot_num").setValue(total_number);
 
-                        myref.child(ts).child(total_number + "").child("msg_txt").setValue(m);
-                        myref.child(ts).child(total_number + "").setValue(new Messages(m, "s"));
-                        myref.child(ts).child("msg_trigger").setValue(new Date() + "");
+                        myref.child(total_number + "").child("msg_txt").setValue(m);
+                        myref.child(total_number + "").setValue(new Messages(m, "s"));
+                        myref.child("msg_trigger").setValue(new Date() + "");
                         listenMsgs();
                     }
 
@@ -172,56 +176,7 @@ public class Chat extends AppCompatActivity {
 
     public void onBackPressed() {
         if (flag == 1) {
-            /*LinearLayout l;
-            l=findViewById(R.id.Dialog);
-            l.setVisibility(View.VISIBLE);
-            EditText feed;
-            Button subm,later;
-            feed=findViewById(R.id.feedback);
-            subm=findViewById(R.id.Submit);
-            later=findViewById(R.id.Notnow);
-            subm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String info=feed.getText().toString();
 
-                    feed.setText("");
-                    if(info.equals(""))
-                        Toast.makeText(Chat.this,"Enter feedback and submit" , Toast.LENGTH_LONG).show();
-                    else
-                    {
-                        FirebaseDatabase database=FirebaseDatabase.getInstance();
-                        DatabaseReference reference=database.getReference("Teacher").child(teacherid).child("Feedback");
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists())
-                                { total_num = Integer.parseInt(dataSnapshot.child("tot_feed").getValue().toString());
-                                total_num=total_num+1;}
-                                else
-                                    total_num=1;
-                                reference.child("tot_feed").setValue(total_num);
-                                reference.child(total_num+"").setValue(info);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        Chat.super.onBackPressed();
-                    }
-
-                }
-            });
-            later.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Chat.super.onBackPressed();
-                }
-            });*/
 
 
             //newdialog

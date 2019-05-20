@@ -32,11 +32,12 @@ public class Quiz extends Activity {
     public static final String ID = "sid";
     String studentsid;
     int score=0,flag=0;
+    Integer totaltest;
     RadioGroup r1, r2, r3, r4, r5;
     Button button1, button2, button3, button4, button5, end;
     RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11, rb12, rb13, rb14, rb15,wrong;
 
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -338,7 +339,7 @@ public class Quiz extends Activity {
         final String str1 = Integer.toString(score);
         sharedpreferences=context.getSharedPreferences(mypreferences,Context.MODE_PRIVATE);
         studentsid=sharedpreferences.getString(ID,"hah");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReference myRef = database.getReference("Students");
         myRef.child(studentsid).child("ranking").child("digestive_system").setValue(str1);
 
@@ -355,6 +356,32 @@ public class Quiz extends Activity {
 
                 Intent intent = new Intent(Quiz.this, Displayscore.class);
                 intent.putExtra("MY_KEY", str1);
+                DatabaseReference reference = database.getReference("Students").child(studentsid).child("marks");
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                             totaltest=Integer.parseInt(dataSnapshot.child("tot_test").getValue().toString());
+                            totaltest=totaltest+1;
+                        }
+                        else
+                            totaltest=1;
+                        reference.child("tot_test").setValue(totaltest);
+                        reference.child(totaltest+"").setValue(str1);
+
+
+
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 startActivity(intent);
 
             }

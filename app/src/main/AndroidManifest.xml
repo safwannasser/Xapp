@@ -16,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Graph"></activity>
+        <activity android:name=".GameActivity"
+            android:parentActivityName=".Hangman"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Hangman" />
+        <activity android:name=".Graph" />
         <activity android:name=".Digestive_rank" />
         <activity android:name=".Ranking" />
         <activity

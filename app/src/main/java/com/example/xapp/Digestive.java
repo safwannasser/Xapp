@@ -35,7 +35,7 @@ public class Digestive extends AppCompatActivity {
     public static final String TEST_TAG_URL = "https://firebasestorage.googleapis.com/v0/b/xapp-b979f.appspot.com/o/storage%2Femulated%2F0%2FWhatsApp%2FMedia%2FWhatsApp%20Video%2FVID-20190314-WA0001.mp4?alt=media&token=077e742e-e466-4a2e-a4d6-57f3dd82dc27";
     private ExoPlayerHelper mExoPlayerHelper;
     ProgressDialog pd;
-    Button rating,quiz;
+    Button rating,quiz,game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +148,7 @@ public class Digestive extends AppCompatActivity {
       //  onBackpressed();
         addListenerOnButton();
         addListenerOnQuizButton();
+        addListenerOnGameButton();
 
         name=(TextView)findViewById(R.id.teachername);
         cur_rate=(TextView)findViewById(R.id.rating);
@@ -265,4 +266,23 @@ public class Digestive extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    public void addListenerOnGameButton()
+    {
+        game = (Button)findViewById(R.id.gamebutton);
+        game.setOnClickListener(v -> {
+            if (mExoPlayerHelper != null) {
+                mExoPlayerHelper.playerPause();
+                //  mExoPlayerHelper.;
+                //  mExoPlayerHelper.seekTo(0);
+
+
+            }
+
+            Intent intent = new Intent(Digestive.this, Hangman.class);
+            startActivity(intent);
+        });
+    }
+
+
 }

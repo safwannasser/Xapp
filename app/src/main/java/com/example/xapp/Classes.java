@@ -11,8 +11,13 @@ public class Classes {
         public ArrayList<Topics> topics;
         static class Topics
         {
-            String topic;
-            ArrayList<String> names;
+            String topic,status2;
+            public ArrayList<Game> names;
+            static class Game
+            {
+                String game;
+                public ArrayList<String> gname;
+            }
         }
     }
 }
