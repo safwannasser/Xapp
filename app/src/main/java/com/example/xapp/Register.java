@@ -45,7 +45,7 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
     ProgressDialog progressDialog;
 
     EditText iemail,ipassword,iphno,icpassword,iname;
-  //  public static final String mypreference = "mypref";
+   public static final String mypreference = "mypref";
    public static final String Name = "nameKey";
 
 
@@ -60,15 +60,15 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
         iphno = (EditText)findViewById(R.id.phno);
         icpassword = (EditText)findViewById(R.id.cpword) ;
         iname = (EditText)findViewById(R.id.name);
-        Spinner spinner = (Spinner) findViewById(R.id.std);
-       // sharedpreferences = getSharedPreferences(mypreference,
-       //         Context.MODE_PRIVATE);
+       // Spinner spinner = (Spinner) findViewById(R.id.std);
+       sharedpreferences = getSharedPreferences(mypreference,
+            Context.MODE_PRIVATE);
       if (sharedpreferences.contains(Name)) {
           iname.setText(sharedpreferences.getString(Name, ""));
 
 
-        spinner.setOnItemSelectedListener(this);
-        List<String> categories = new ArrayList<String>();
+        //spinner.setOnItemSelectedListener(this);
+       /* List<String> categories = new ArrayList<String>();
         categories.add("CLASS");
         categories.add("I");
         categories.add("II");
@@ -82,8 +82,8 @@ public class Register extends AppCompatActivity implements OnItemSelectedListene
         categories.add("XI");
         categories.add("V");
         categories.add("XII");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        spinner.setAdapter(dataAdapter);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);*/
+       // spinner.setAdapter(dataAdapter);
 
         addListenerOnButton();
     }}

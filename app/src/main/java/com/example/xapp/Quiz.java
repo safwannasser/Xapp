@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,12 +40,12 @@ public class Quiz extends Activity {
     public static final String mypreferences = "myprefer";
     public static final String ID = "sid";
     String studentsid,topic,Flag,newword;
-    int score=0,flag=0;
+    int score=0,flag1=0,flag2=0,flag3=0;
     Integer totaltest;
     RadioGroup r1, r2, r3, r4, r5;
     Button button1, button2, button3, button4, button5, end;
     RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11, rb12, rb13, rb14, rb15,wrong;
-    private Random rand;
+
     public ArrayList<String> words;
     TextView first,second,third;
     ArrayList<String> newans;
@@ -87,30 +89,35 @@ public class Quiz extends Activity {
         r5 = (RadioGroup) findViewById(R.id.fifans);
 
 */
-       DatabaseReference databaseReference= database.getReference("CLASS").child("5").child("SCIENCE").child("DIGESTIVE SYSTEM").child("Quiz");
+       DatabaseReference databaseReference= database.getReference("CLASS").child("5").child("SCIENCE").child(topic).child("Quiz");
        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                words=new ArrayList<String>();
+               questions=new ArrayList<Questions>();
                for(DataSnapshot ds:dataSnapshot.getChildren())
                {
                    Questions ques=new Questions();
                    ques.ans=new ArrayList<>();
                    ques.correct=new ArrayList<>();
                    ques.question=ds.getKey();
+                   //dfghf
                    for(DataSnapshot ds2:ds.getChildren())
                    {
                        ques.ans.add(ds2.getKey());
-                       if(ds2.getValue().toString()=="Y")
+                       if(ds2.getValue().toString().equals("Y"))
                        {
                            ques.correct.add(true);
+                           Log.e("Options","Options="+ds2.getKey()+"  ANs="+true);
                        }
-                       else
+                       else {
                            ques.correct.add(false);
-                   }
+                           Log.e("Options","Options="+ds2.getKey()+"  ANs="+false);
+                       }
+                       }
                    questions.add(ques);
 
-               }playquiz();
+               }addbuttonlistener();
 
            }
 
@@ -245,7 +252,11 @@ public class Quiz extends Activity {
 
     }
     public void addbuttonlistener()
-    {
+    {   Random rand= new Random();
+        int random1=rand.nextInt(questions.size());
+        newword=questions.get(random1).question;
+        newans=questions.get(random1).ans;
+        newcorrect=questions.get(random1).correct;
         first=(TextView)findViewById(R.id.fquestion);
         String newquestion=newword;
         first.setText(newword);
@@ -254,14 +265,17 @@ public class Quiz extends Activity {
             switch (i)
             {
                 case 0:rb2 = (RadioButton) findViewById(R.id.b2);
-                rb2.setTag(newcorrect.get(i));
-                    rb2.setText(newans.get(i));
+                        rb2.setTag(newcorrect.get(i));
+                         rb2.setText(newans.get(i));
+                            break;
                 case 1 : rb1 = (RadioButton) findViewById(R.id.b1);
                 rb1.setTag(newcorrect.get(i));
                 rb1.setText(newans.get(i));
+                break;
                 case 2: rb3 = (RadioButton) findViewById(R.id.b3);
                 rb3.setTag(newcorrect.get(i));
                 rb3.setText(newans.get(i));
+                break;
             }
         }
 
@@ -270,14 +284,15 @@ public class Quiz extends Activity {
 
             @Override
             public void onClick(View v) {
-                flag=1;
+                flag1=1;
                 if(r1.getCheckedRadioButtonId()== -1){
                     Toast.makeText(Quiz.this, "CHOOSE A VALID OPTION" , Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    View choosed_option=findViewById(r1.getCheckedRadioButtonId());
-                    if((Boolean) choosed_option.getTag()==true)
+                    RadioButton choosed_option=(RadioButton)findViewById(r1.getCheckedRadioButtonId());
+                    Log.e("Selected option","Option="+choosed_option.getText().toString()+"  ANs="+choosed_option.getTag());
+                    if((Boolean) choosed_option.getTag())
                     {
                         score=score+1;
 
@@ -291,14 +306,14 @@ public class Quiz extends Activity {
                         rb2.setTextColor(Color.RED);
 
                     }
-                    if(flag==1){
+                    if(flag1==1){
                         button1.setEnabled(false);
                         addListenerOnButton();
                     }
                 }}
         });
         do {
-            int random = rand.nextInt(questions.size());
+           int  random = rand.nextInt(questions.size());
             newword = questions.get(random).question;
             newans = questions.get(random).ans;
             newcorrect = questions.get(random).correct;
@@ -313,12 +328,15 @@ public class Quiz extends Activity {
                 case 0:rb4 = (RadioButton) findViewById(R.id.b4);
                     rb4.setTag(newcorrect.get(i));
                     rb4.setText(newans.get(i));
+                    break;
                 case 1 : rb5 = (RadioButton) findViewById(R.id.b5);
                     rb5.setTag(newcorrect.get(i));
                     rb5.setText(newans.get(i));
+                    break;
                 case 2: rb6 = (RadioButton) findViewById(R.id.b6);
                     rb6.setTag(newcorrect.get(i));
                     rb6.setText(newans.get(i));
+                    break;
             }
         }
 
@@ -328,29 +346,29 @@ public class Quiz extends Activity {
 
             @Override
             public void onClick(View v) {
-                flag=2;
+                flag2=1;
                 if(r2.getCheckedRadioButtonId()== -1){
                     Toast.makeText(Quiz.this, "CHOOSE A VALID OPTION" , Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    View choosed_option=findViewById(r1.getCheckedRadioButtonId());
-                    if((Boolean) choosed_option.getTag()==true)
+                    View choosed_option=findViewById(r2.getCheckedRadioButtonId());
+                    if((Boolean) choosed_option.getTag())
                     {
                         score=score+1;
 
-                        rb2=(RadioButton)findViewById(r1.getCheckedRadioButtonId());
+                        rb2=(RadioButton)findViewById(r2.getCheckedRadioButtonId());
                         rb2.setTextColor(Color.GREEN);
 
                     }
 
                     else{
-                        rb2=(RadioButton)findViewById(r1.getCheckedRadioButtonId());
+                        rb2=(RadioButton)findViewById(r2.getCheckedRadioButtonId());
                         rb2.setTextColor(Color.RED);
 
                     }
-                    if(flag==1){
-                        button1.setEnabled(false);
+                    if(flag2==1){
+                        button2.setEnabled(false);
                         addListenerOnButton();
                     }
                 }}
@@ -360,7 +378,7 @@ public class Quiz extends Activity {
             newword = questions.get(random).question;
             newans = questions.get(random).ans;
             newcorrect = questions.get(random).correct;
-        }while (newquestion==newword&&newquestion1==newword);
+        }while ((newquestion==newword) || (newquestion1==newword));
         third=(TextView)findViewById(R.id.tquestion);
 
         third.setText(newword);
@@ -371,12 +389,15 @@ public class Quiz extends Activity {
                 case 0:rb7 = (RadioButton) findViewById(R.id.b7);
                     rb7.setTag(newcorrect.get(i));
                     rb7.setText(newans.get(i));
+                    break;
                 case 1 : rb8 = (RadioButton) findViewById(R.id.b8);
                     rb8.setTag(newcorrect.get(i));
                     rb8.setText(newans.get(i));
+                    break;
                 case 2: rb9 = (RadioButton) findViewById(R.id.b9);
                     rb9.setTag(newcorrect.get(i));
                     rb9.setText(newans.get(i));
+                    break;
             }
         }
 
@@ -386,29 +407,29 @@ public class Quiz extends Activity {
 
             @Override
             public void onClick(View v) {
-                flag=3;
+                flag3=1;
                 if(r3.getCheckedRadioButtonId()== -1){
                     Toast.makeText(Quiz.this, "CHOOSE A VALID OPTION" , Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    View choosed_option=findViewById(r1.getCheckedRadioButtonId());
-                    if((Boolean) choosed_option.getTag()==true)
+                    View choosed_option=findViewById(r3.getCheckedRadioButtonId());
+                    if((Boolean) choosed_option.getTag())
                     {
                         score=score+1;
 
-                        rb2=(RadioButton)findViewById(r1.getCheckedRadioButtonId());
+                        rb2=(RadioButton)findViewById(r3.getCheckedRadioButtonId());
                         rb2.setTextColor(Color.GREEN);
 
                     }
 
                     else{
-                        rb2=(RadioButton)findViewById(r1.getCheckedRadioButtonId());
+                        rb2=(RadioButton)findViewById(r3.getCheckedRadioButtonId());
                         rb2.setTextColor(Color.RED);
 
                     }
-                    if(flag==1){
-                        button1.setEnabled(false);
+                    if(flag3==1){
+                        button3.setEnabled(false);
                         addListenerOnButton();
                     }
                 }}
@@ -416,7 +437,7 @@ public class Quiz extends Activity {
 
 
     }
-    public void playquiz()
+  /*  public void playquiz()
     {   int random=rand.nextInt(questions.size());
          newword=questions.get(random).question;
          newans=questions.get(random).ans;
@@ -424,7 +445,7 @@ public class Quiz extends Activity {
         addbuttonlistener();
 
 
-    }
+    }*/
 
 
     public void addListenerOnButton() {
@@ -450,7 +471,7 @@ public class Quiz extends Activity {
 
                 Intent intent = new Intent(Quiz.this, Displayscore.class);
                 intent.putExtra("MY_KEY", str1);
-                DatabaseReference reference = database.getReference("Students").child(studentsid).child("marks");
+                DatabaseReference reference = database.getReference("Students").child(studentsid).child("marks").child(topic);
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

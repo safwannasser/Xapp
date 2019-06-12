@@ -35,7 +35,7 @@ public class Photosyn extends AppCompatActivity {
     public static final String TEST_TAG_URL = "https://firebasestorage.googleapis.com/v0/b/xapp-b979f.appspot.com/o/storage%2Femulated%2F0%2FWhatsApp%2FMedia%2FWhatsApp%20Video%2FVID-20190429-WA0028.mp4?alt=media&token=e03a1d55-cf0d-4dc6-9e73-505580bbfe22";
     private ExoPlayerHelper mExoPlayerHelper;
     ProgressDialog pd;
-    Button rating,quiz,game;
+    Button rating,quiz,game,learn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,15 +149,16 @@ public class Photosyn extends AppCompatActivity {
         addListenerOnButton();
         addListenerOnQuizButton();
         addListenerOnGameButton();
+        addListenerOnlearnButton();
 
-        name=(TextView)findViewById(R.id.teachername);
-        cur_rate=(TextView)findViewById(R.id.rating);
-        myRef.child("DIGESTIVE SYSTEM").addListenerForSingleValueEvent(new ValueEventListener() {
+       // name=(TextView)findViewById(R.id.teachername);
+       // cur_rate=(TextView)findViewById(R.id.rating);
+        myRef.child("ELEMENTS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 faculty_name=dataSnapshot.getValue().toString();
                 Log.d("Teacher Name",faculty_name);
-                name.setText(faculty_name);
+               // name.setText(faculty_name);
                 final Query userQuery = FirebaseDatabase.getInstance().getReference().child("Teacher").orderByChild("name");
                 userQuery.equalTo(faculty_name).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -178,7 +179,7 @@ public class Photosyn extends AppCompatActivity {
                                         rate=(ds.getValue().toString());
                                         int number_ppl=Integer.parseInt(ds.getKey());
                                         Log.i("rare",rate);
-                                        cur_rate.setText(rate);
+                                       // cur_rate.setText(rate);
                                     }
 
 
@@ -278,4 +279,20 @@ public class Photosyn extends AppCompatActivity {
             });
 
     }
+    public void addListenerOnlearnButton()
+    {
+        learn=(Button)findViewById(R.id.learning);
+        learn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mExoPlayerHelper !=null){
+                    mExoPlayerHelper.playerPause();
+                }
+                Intent intent= new Intent(Photosyn.this,Graph.class);
+
+                startActivity(intent);
+            }
+        });
+    }
+
 }

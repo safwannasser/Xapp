@@ -51,7 +51,7 @@ public class Profile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         addListenerOnButton();
-        graph();
+       // graph();
         request();
 
 
@@ -179,14 +179,14 @@ public class Profile extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        score=findViewById(R.id.rank);
+        /*score=findViewById(R.id.rank);
         score.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this,Ranking.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
         //qrcode
@@ -272,7 +272,7 @@ public class Profile extends AppCompatActivity
         }
     }
 
-    public void graph()
+   /* public void graph()
     {
         pro=findViewById(R.id.button3);
         pro.setOnClickListener(new View.OnClickListener() {
@@ -282,7 +282,7 @@ public class Profile extends AppCompatActivity
                 startActivity(intent);
             }
         });
-    }
+    }*/
     public void request()
     {
         req=findViewById(R.id.button2);

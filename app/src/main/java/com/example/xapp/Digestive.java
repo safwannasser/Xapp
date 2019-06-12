@@ -35,7 +35,7 @@ public class Digestive extends AppCompatActivity {
     public static final String TEST_TAG_URL = "https://firebasestorage.googleapis.com/v0/b/xapp-b979f.appspot.com/o/storage%2Femulated%2F0%2FWhatsApp%2FMedia%2FWhatsApp%20Video%2FVID-20190314-WA0001.mp4?alt=media&token=077e742e-e466-4a2e-a4d6-57f3dd82dc27";
     private ExoPlayerHelper mExoPlayerHelper;
     ProgressDialog pd;
-    Button rating,quiz,game;
+    Button rating,quiz,game,learn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,15 +149,16 @@ public class Digestive extends AppCompatActivity {
         addListenerOnButton();
         addListenerOnQuizButton();
         addListenerOnGameButton();
+        addListenerOnlearnButton();
 
-        name=(TextView)findViewById(R.id.teachername);
-        cur_rate=(TextView)findViewById(R.id.rating);
+       // name=(TextView)findViewById(R.id.teachername);
+       // cur_rate=(TextView)findViewById(R.id.rating);
         myRef.child("DIGESTIVE SYSTEM").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 faculty_name=dataSnapshot.getValue().toString();
                 Log.d("Teacher Name",faculty_name);
-                name.setText(faculty_name);
+                //name.setText(faculty_name);
                 final Query userQuery = FirebaseDatabase.getInstance().getReference().child("Teacher").orderByChild("name");
                 userQuery.equalTo(faculty_name).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -178,7 +179,7 @@ public class Digestive extends AppCompatActivity {
                                         rate=(ds.getValue().toString());
                                         int number_ppl=Integer.parseInt(ds.getKey());
                                         Log.i("rare",rate);
-                                        cur_rate.setText(rate);
+                                       // cur_rate.setText(rate);
                                     }
 
 
@@ -283,6 +284,21 @@ public class Digestive extends AppCompatActivity {
             Intent intent = new Intent(Digestive.this, Hangman.class);
             intent.putExtra("Flag",flag);
             startActivity(intent);
+        });
+    }
+    public void addListenerOnlearnButton()
+    {   String flag="0";
+        learn=(Button)findViewById(R.id.learning);
+        learn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mExoPlayerHelper !=null){
+                    mExoPlayerHelper.playerPause();
+                }
+                Intent intent= new Intent(Digestive.this,Graph.class);
+                intent.putExtra("Flags",flag);
+                startActivity(intent);
+            }
         });
     }
 

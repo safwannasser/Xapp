@@ -31,7 +31,7 @@ public class Graph extends AppCompatActivity {
     Context context;
     public static final String ID = "sid";
     BarChart chart ;
-    String studentsid;
+    String studentsid,Flag,topic;
     Integer totaltest;
     ArrayList<BarEntry> BARENTRY ;
     ArrayList<String> BarEntryLabels ;
@@ -42,6 +42,19 @@ public class Graph extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+        Bundle extras= getIntent().getExtras();
+        if(extras!=null)
+        {
+            Flag=(extras.getString("Flags"));
+        }
+        if(Flag!=null)
+        {
+            topic="DIGESTIVE SYSTEM";
+        }
+        else
+        {
+            topic="ELEMENTS";
+        }
         sharedpreferences = getSharedPreferences(mypreferences, Context.MODE_PRIVATE);
         studentsid = sharedpreferences.getString(ID, "hah");
         Log.i("zxcv",studentsid);
@@ -56,12 +69,13 @@ public class Graph extends AppCompatActivity {
 
 
 
+
     }
 
     public void AddValuesToBARENTRY(){
 
 
-        DatabaseReference ref = database.getReference("Students").child(studentsid).child("marks");
+        DatabaseReference ref = database.getReference("Students").child(studentsid).child("marks").child(topic);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

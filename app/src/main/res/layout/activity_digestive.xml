@@ -18,19 +18,7 @@
         android:layout_centerInParent="true"
         android:text="Rate Teacher" />
 
-    <TextView
-        android:id="@+id/teachername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="147dp"
-        android:layout_marginRight="147dp"
-        android:layout_marginBottom="431dp"
-        android:text="TextView" />
-
-    <TextView
+    <!--<TextView
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +28,7 @@
         android:layout_marginEnd="67dp"
         android:layout_marginRight="67dp"
         android:layout_marginBottom="430dp"
-        android:text="TextView" />
+        android:text="TextView" />-->
 
     <Button
         android:id="@+id/quizbutton"
@@ -56,5 +44,12 @@
         android:layout_below="@+id/quizbutton"
         android:layout_centerInParent="true"
         android:text="Play Game" />
+    <Button
+        android:id="@+id/learning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gamebutton"
+        android:layout_centerInParent="true"
+        android:text="Learning Analysis" />
 
 </RelativeLayout>

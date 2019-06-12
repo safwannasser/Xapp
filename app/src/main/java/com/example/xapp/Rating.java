@@ -46,10 +46,10 @@ public class Rating extends AppCompatActivity {
             //Getting the rating and displaying it on the toast
              rating=(int)ratingbar.getRating();
             Bundle extras= getIntent().getExtras();
-            if(extras!=null)
-            {
-                rithu=extras.getString("MY_KEY");
-                Log.i("safwan",rithu); }
+            if(extras!=null) {
+                rithu = extras.getString("MY_KEY");
+                // Log.i("safwan",rithu); }
+            }
 
             myRef.child(rithu).child("rating").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
